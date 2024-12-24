@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11516295022"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11516295022">  </script> 
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
+
       gtag('config', 'AW-11516295022');
     </script>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <div class="form-container">
         <h1>Contact Us</h1>
-        <form id="trackingForm" action="#" method="POST">
+        <form id="trackingForm" action="https://script.google.com/macros/s/AKfycbz0bnhWyzzkNlRphS7C3UekPEqWTD3zx7g-1FizcIFcXembKnjUyReBKKr1F0nziVg_/exec" method="POST">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -45,19 +45,28 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxi84a6aW47IiMSr8VkedLIWYYsCwAmJqWlQKjtnKnBxoEjCYO5sKIkXbQtOswsYjM/exec'; // Replace YOUR_SCRIPT_ID with your Google Apps Script ID
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz0bnhWyzzkNlRphS7C3UekPEqWTD3zx7g-1FizcIFcXembKnjUyReBKKr1F0nziVg_/exec';
 
+        // Capture form submission
         document.getElementById('trackingForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
 
             const form = e.target;
             const formData = new FormData(form);
 
+            // Add conversion tag to formData
+            formData.append('conversionTag', 'AW-11516295022/XXXXX'); // Use your specific conversion label
+
             // Push data to Google Sheets using Google Apps Script
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     if (response.ok) {
                         alert('Form submitted successfully!');
+
+                        // Trigger Google Ads Conversion Event
+                        gtag('event', 'conversion', {
+                            'send_to': 'AW-11516295022/XXXXX' // Replace XXXXX with your conversion label
+                        });
                     } else {
                         alert('Failed to submit the form. Please try again.');
                     }
